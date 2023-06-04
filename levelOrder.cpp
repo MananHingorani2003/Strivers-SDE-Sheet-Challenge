@@ -1,31 +1,22 @@
-vector<vector<int>> levelOrder(TreeNode* root) {
-        if (root == nullptr) return {};
-        vector <vector <int>> final;
-        vector <int> temp;
-        TreeNode *curr = root;
-        queue <TreeNode *> mahi;
+vector<int> getLevelOrder(BinaryTreeNode<int> *root)
+{
+    //  Write your code here.
+    if(root==NULL){
+        return {};
+    }
 
-        mahi.push (root);
-        mahi.push (NULL);
+    queue<BinaryTreeNode<int> *>q1;
+    q1.push(root);
+    vector<int> ans;
+    
+    while(!q1.empty()){
+        BinaryTreeNode<int> *temp = q1.front();
+        ans.push_back(temp->val);
 
-        while (true) { 
-            TreeNode *top = mahi.front();
-            mahi.pop();
-            if (top) temp.push_back (top -> val);
-            
-            if (top==NULL) {
-                final.push_back (temp);
-                temp.clear();
-                if (mahi.size()==0) break;
-                mahi.push (NULL);
-            }
-            else {
-                if (top -> left) mahi.push (top -> left);
-                if (top -> right) mahi.push (top -> right);
-            }
-
-        }
-
-        return final;
+        q1.pop();
+        if(temp->left!=NULL) q1.push(temp->left);
+        if(temp->right!=NULL) q1.push(temp->right);
 
     }
+    return ans;
+}
